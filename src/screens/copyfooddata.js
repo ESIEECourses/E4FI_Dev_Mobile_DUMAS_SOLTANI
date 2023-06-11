@@ -1,5 +1,5 @@
 import { Picker } from '@react-native-picker/picker';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,20 +12,17 @@ import {
 } from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
 
-import { MealContext } from './MealContext'; // Importez le MealContext
-
 const FoodDatabase = ({ navigation }) => {
   const APP_ID = 'b93b7010';
   const APP_KEY = 'cb57f85c98d052d57b80d397f8b522ad';
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [error, setError] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState('');
   const [selectedDay, setSelectedDay] = useState('');
   const [quantity, setQuantity] = useState('');
-
-  const { addMeal } = useContext(MealContext); // Utilisez le contexte MealContext
+  const [modalVisible, setModalVisible] = useState(false);
+  const [mealToAdd, setMealToAdd] = useState(null);
 
   const handleSearch = () => {
     fetch(
@@ -52,9 +49,7 @@ const FoodDatabase = ({ navigation }) => {
   };
 
   const handleAddToMeal = () => {
-    if (searchResults) {
-      setModalVisible(true);
-    }
+    setModalVisible(true);
   };
 
   const handleModalClose = () => {
@@ -63,13 +58,12 @@ const FoodDatabase = ({ navigation }) => {
 
   const handleModalSubmit = () => {
     const meal = {
-      name: searchResults.label,
-      calories: searchResults.nutrients.ENERC_KCAL,
-      day: selectedDay,
       mealType: selectedMeal,
+      day: selectedDay,
       quantity,
+      food: searchResults,
     };
-    addMeal(meal);
+    setMealToAdd(meal);
     setModalVisible(false);
   };
 
@@ -152,12 +146,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   pickerContainer: {
-    height: 40,
-    borderColor: 'gray',
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
-    justifyContent: 'center',
+    borderColor: 'gray',
+    marginBottom: 10,
     paddingHorizontal: 8,
-  },
+  },  
   input: {
     borderWidth: 1,
     borderColor: 'gray',
@@ -168,10 +163,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modal: {
-    top: 50,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
   },
   inputContainer: {
     marginBottom: 20,
@@ -194,6 +191,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     marginBottom: 10,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
 

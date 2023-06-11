@@ -2,13 +2,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 
 import AppNavigator from './src/navigation/AppNavigator';
-
+import { MealProvider } from './src/screens/MealContext'; // Importez le MealProvider
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <MealProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </MealProvider>
   );
 };
 
