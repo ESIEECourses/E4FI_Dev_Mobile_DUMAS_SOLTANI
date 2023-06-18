@@ -1,18 +1,16 @@
-import { Picker } from '@react-native-picker/picker';
 import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
   TextInput,
-  Button,
+  TouchableOpacity,
   SafeAreaView,
   Modal,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 import ModalSelector from 'react-native-modal-selector';
 
-import { MealContext } from './MealContext'; // Importez le MealContext
+import { MealContext } from './MealContext';
 
 const FoodDatabase = ({ navigation }) => {
   const APP_ID = 'b93b7010';
@@ -25,7 +23,7 @@ const FoodDatabase = ({ navigation }) => {
   const [selectedDay, setSelectedDay] = useState('');
   const [quantity, setQuantity] = useState('');
 
-  const { addMeal } = useContext(MealContext); // Utilisez le contexte MealContext
+  const { addMeal } = useContext(MealContext);
 
   const handleSearch = () => {
     fetch(
@@ -75,20 +73,26 @@ const FoodDatabase = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text style={styles.title}>Welcome to the Food Database Screen!</Text>
+      <View style={styles.upperContainer}>
+        <Text style={styles.title}>Find your Meal !</Text>
         <TextInput
           style={styles.input}
           placeholder="Search food..."
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
-        <Button title="Search" onPress={handleSearch} />
+        <TouchableOpacity style={styles.button} onPress={handleSearch}>
+          <Text style={styles.buttonText}>Search</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.lowerContainer}>
         {searchResults && (
           <View>
-            <Text>Name: {searchResults.label}</Text>
-            <Text>Calories: {searchResults.nutrients.ENERC_KCAL}</Text>
-            <Button title="Add to Meal" onPress={handleAddToMeal} />
+            <Text style={styles.resultLabel}>Name: {searchResults.label}</Text>
+            <Text style={styles.resultLabel}>Calories: {searchResults.nutrients.ENERC_KCAL}</Text>
+            <TouchableOpacity style={styles.button} onPress={handleAddToMeal}>
+              <Text style={styles.buttonText}>Add to Meal</Text>
+            </TouchableOpacity>
           </View>
         )}
         {error && <Text>{error}</Text>}
@@ -96,10 +100,11 @@ const FoodDatabase = ({ navigation }) => {
       <Modal visible={modalVisible} transparent>
         <View style={styles.modalContainer}>
           <View style={styles.modal}>
-            <Text style={styles.modalTitle}>Add to Meal</Text>
+            <Text style={styles.title}>Add to Meal</Text>
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Day:</Text>
               <ModalSelector
+                style={{ backgroundColor: 'white', borderRadius: 8 }}
                 data={[
                   { key: 0, label: 'Monday' },
                   { key: 1, label: 'Tuesday' },
@@ -116,6 +121,7 @@ const FoodDatabase = ({ navigation }) => {
             <View style={styles.inputContainer}>
               <Text style={styles.inputLabel}>Meal:</Text>
               <ModalSelector
+                style={{ backgroundColor: 'white', borderRadius: 8 }}
                 data={[
                   { key: 0, label: 'Breakfast' },
                   { key: 1, label: 'Lunch' },
@@ -132,8 +138,12 @@ const FoodDatabase = ({ navigation }) => {
               <TextInput style={styles.input} value={quantity} onChangeText={setQuantity} />
             </View>
             <View style={styles.buttonContainer}>
-              <Button title="Submit" onPress={handleModalSubmit} />
-              <Button title="Close" onPress={handleModalClose} />
+              <TouchableOpacity style={styles.button} onPress={handleModalSubmit}>
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={handleModalClose}>
+                <Text style={styles.buttonText}>Close</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -144,31 +154,59 @@ const FoodDatabase = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#364f6b',
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  upperContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  lowerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'white',
   },
-  pickerContainer: {
+  input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    justifyContent: 'center',
     paddingHorizontal: 8,
+    backgroundColor: 'white',
+    borderRadius: 8,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    padding: 10,
-    marginBottom: 10,
+  button: {
+    backgroundColor: '#47688D',
+    padding: 12,
+    borderRadius: 8,
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  resultLabel: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: 'white',
   },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#364f6b',
   },
   modal: {
     top: 50,

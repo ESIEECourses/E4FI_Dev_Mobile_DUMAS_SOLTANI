@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-nati
 import { MealContext } from './MealContext';
 
 const MealPlanning = () => {
-  const { meals, addMeal, removeMeal } = useContext(MealContext);
+  const { meals, removeMeal } = useContext(MealContext);
   const navigation = useNavigation();
 
   const getUniqueMealsByDayAndType = () => {
@@ -20,10 +20,14 @@ const MealPlanning = () => {
         uniqueMeals.push({
           day: meal.day,
           mealType: meal.mealType,
-          foods: [meal.name],
+          foods: [{ name: meal.name, quantity: meal.quantity, calories: meal.calories }],
         });
       } else {
-        uniqueMeals[existingMealIndex].foods.push(meal.name);
+        uniqueMeals[existingMealIndex].foods.push({
+          name: meal.name,
+          quantity: meal.quantity,
+          calories: meal.calories,
+        });
       }
     });
 
@@ -35,7 +39,7 @@ const MealPlanning = () => {
 
     let totalCalories = 0;
     mealsOfDay.forEach((meal) => {
-      totalCalories += meal.calories;
+      totalCalories += meal.calories * meal.quantity;
     });
 
     return totalCalories;
@@ -52,8 +56,6 @@ const MealPlanning = () => {
     }
   };
 
-    
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TouchableOpacity onPress={handleAddFood} style={styles.addButton}>
@@ -62,22 +64,24 @@ const MealPlanning = () => {
 
       <View style={styles.dayContainer}>
         {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(
-          (day) => (
-            <View key={day} style={styles.dayItem}>
+          (day, index) => (
+            <View key={day} style={[styles.dayItem, index > 0 && styles.borderTop]}>
               <Text style={styles.dayTitle}>{day}</Text>
 
               <View style={styles.mealContainer}>
-                {getUniqueMealsByDayAndType().map((meal, index) => {
+                {getUniqueMealsByDayAndType().map((meal, mealIndex) => {
                   if (meal.day === day) {
                     return (
-                      <View key={index} style={styles.mealContainer}>
+                      <View key={mealIndex} style={styles.mealContainer}>
                         <Text style={styles.mealType}>{meal.mealType}</Text>
                         <View style={styles.foodList}>
                           {meal.foods.map((food, foodIndex) => (
                             <View key={foodIndex} style={styles.foodItem}>
-                              <Text>{food}</Text>
+                              <Text style={styles.foodText}>
+                                {food.name} ({food.quantity})
+                              </Text>
                               <TouchableOpacity
-                                onPress={() => handleRemoveFood(food)}
+                                onPress={() => handleRemoveFood(food.name)}
                                 style={styles.removeButton}>
                                 <Text style={styles.removeButtonText}>Remove</Text>
                               </TouchableOpacity>
@@ -105,12 +109,7 @@ const MealPlanning = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    backgroundColor: '#364f6b',
   },
   dayContainer: {
     flex: 1,
@@ -118,10 +117,16 @@ const styles = StyleSheet.create({
   dayItem: {
     marginBottom: 20,
   },
+  borderTop: {
+    borderTopWidth: 1,
+    borderTopColor: 'white',
+    paddingTop: 10,
+  },
   dayTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'white',
   },
   mealContainer: {
     paddingLeft: 20,
@@ -130,6 +135,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: 'white',
   },
   foodList: {
     marginTop: 5,
@@ -139,6 +145,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 5,
+  },
+  foodText: {
+    color: 'white',
   },
   removeButton: {
     backgroundColor: 'red',
@@ -153,6 +162,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 5,
     marginTop: 10,
+    alignSelf: 'center',
   },
   addButtonText: {
     color: 'white',
@@ -161,6 +171,7 @@ const styles = StyleSheet.create({
   totalCalories: {
     marginTop: 10,
     fontWeight: 'bold',
+    color: 'white',
   },
 });
 

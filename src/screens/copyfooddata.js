@@ -35,7 +35,6 @@ const FoodDatabase = ({ navigation }) => {
           setSearchResults(null);
         } else {
           if (data.hints.length > 0) {
-            console.log(data.hints[0].food);
             setSearchResults(data.hints[0].food);
             setError(null);
           }
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginBottom: 10,
     paddingHorizontal: 8,
-  },  
+  },
   input: {
     borderWidth: 1,
     borderColor: 'gray',

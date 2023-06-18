@@ -113,12 +113,13 @@ const HealthScreen = () => {
                   <Picker.Item label="Male" value="male" />
                   <Picker.Item label="Female" value="female" />
                 </Picker>
-                <Button
-                  title="Close"
+                <TouchableOpacity
+                  style={styles.button}
                   onPress={() => {
                     setModalVisible(false);
-                  }}
-                />
+                  }}>
+                  <Text style={styles.buttonText}>Close</Text>
+                </TouchableOpacity>
               </View>
             </Modal>
           </View>
@@ -126,7 +127,7 @@ const HealthScreen = () => {
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}> Height </Text>
             <TextInput
-              placeholder="Height"
+              placeholder="Enter your height"
               style={styles.input}
               value={height}
               onChangeText={(text) => setHeight(text)}
@@ -136,7 +137,7 @@ const HealthScreen = () => {
           <View style={styles.inputContainer}>
             <Text style={styles.inputLabel}> Weight </Text>
             <TextInput
-              placeholder="Weight"
+              placeholder="Enter your weight"
               style={styles.input}
               value={weight}
               onChangeText={(text) => setWeight(text)}
@@ -153,6 +154,7 @@ const HealthScreen = () => {
               </Text>
             </TouchableOpacity>
             <Modal
+              style={styles.modalContainer}
               animationType="slide"
               transparent
               visible={modalVisible === 'activityLevel'}
@@ -170,12 +172,13 @@ const HealthScreen = () => {
                   <Picker.Item label="Heavy Exercise" value="Heavy Exercise" />
                   <Picker.Item label="Extra Exercise" value="Extra Exercise" />
                 </Picker>
-                <Button
-                  title="Close"
+                <TouchableOpacity
+                  style={styles.button}
                   onPress={() => {
-                    setModalVisible(null);
-                  }}
-                />
+                    setModalVisible(false);
+                  }}>
+                  <Text style={styles.buttonText}>Close</Text>
+                </TouchableOpacity>
               </View>
             </Modal>
           </View>
@@ -205,22 +208,28 @@ const HealthScreen = () => {
                   <Picker.Item label="Weight Maintenance" value="Weight Maintenance" />
                   <Picker.Item label="Weight Gain" value="Weight Gain" />
                 </Picker>
-                <Button
-                  title="Close"
+                <TouchableOpacity
+                  style={styles.button}
                   onPress={() => {
-                    setModalVisible(null);
-                  }}
-                />
+                    setModalVisible(false);
+                  }}>
+                  <Text style={styles.buttonText}>Close</Text>
+                </TouchableOpacity>
               </View>
             </Modal>
           </View>
 
           <View>
-            <Button
-              title="Submit"
-              disabled={!age || !gender || !height || !weight || !activityLevel || !healthGoal}
+            <TouchableOpacity
+              style={[
+                styles.button,
+                (!age || !gender || !height || !weight || !activityLevel || !healthGoal) &&
+                  styles.disabledButton,
+              ]}
               onPress={handleSubmit}
-            />
+              disabled={!age || !gender || !height || !weight || !activityLevel || !healthGoal}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
       ) : (
@@ -229,7 +238,9 @@ const HealthScreen = () => {
           <Text style={styles.resultText}>{bmrResult.toFixed(2)}</Text>
 
           <View style={{ marginTop: 20 }}>
-            <Button title="Reset" onPress={handleReset} />
+            <TouchableOpacity style={styles.button} onPress={handleReset}>
+              <Text style={styles.buttonText}>Reset</Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}
@@ -241,20 +252,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 40,
+    paddingTop: 60,
+    backgroundColor: '#364f6b',
   },
   inputContainer: {
+    top: '5%',
+    bottom: '5%',
     marginBottom: 20,
   },
   inputLabel: {
     fontSize: 16,
     marginBottom: 5,
+    color: 'white',
   },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 8,
+    backgroundColor: 'white',
+    borderRadius: 8,
   },
   pickerContainer: {
     height: 40,
@@ -262,15 +279,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     paddingHorizontal: 8,
+    backgroundColor: 'white',
+    borderRadius: 8,
   },
   pickerText: {
     fontSize: 16,
+    color: 'gray',
   },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#364f6b',
   },
   picker: {
     width: '100%',
@@ -284,8 +304,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: 'white',
   },
   resultText: {
+    fontSize: 16,
+    color: 'white',
+  },
+  button: {
+    backgroundColor: '#47688D',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  disabledButton: {
+    backgroundColor: '#9BAEBF',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: 16,
   },
 });

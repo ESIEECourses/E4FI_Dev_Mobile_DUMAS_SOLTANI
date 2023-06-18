@@ -1,6 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import React, { createContext, useState, useEffect } from 'react';
 
 // Créez le contexte MealContext
 export const MealContext = createContext();
@@ -29,12 +28,11 @@ export const MealProvider = ({ children }) => {
       console.log('Erreur lors de la sauvegarde des repas :', error);
     }
   };
-  
+
   // Utilisez useEffect pour appeler saveMeals chaque fois que meals change
   useEffect(() => {
     saveMeals();
   }, [meals]);
-
 
   const loadMeals = async () => {
     try {
@@ -47,7 +45,7 @@ export const MealProvider = ({ children }) => {
       console.log('Erreur lors du chargement des repas :', error);
     }
   };
-  
+
   // Utilisez useEffect pour charger les repas une fois au montage du composant
   useEffect(() => {
     loadMeals();
@@ -59,9 +57,5 @@ export const MealProvider = ({ children }) => {
     removeMeal,
   };
 
-  return (
-    <MealContext.Provider value={contextValue}>
-      {children}
-    </MealContext.Provider>
-  );
+  return <MealContext.Provider value={contextValue}>{children}</MealContext.Provider>;
 };
