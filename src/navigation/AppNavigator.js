@@ -12,15 +12,22 @@ const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
   return (
     <Tab.Navigator
-      barStyle={{ backgroundColor: '#47688D' }}
+      
       initialRouteName="Welcome"
       screenOptions={{
         headerShown: false,
-        tabBarActiveBackgroundColor: '#47688D',
-        tabBarInactiveBackgroundColor: '#47688D',
+        tabBarShowLabel: false,
         tabBarStyle: [
           {
-            display: 'flex',
+            backgroundColor: 'rgba(255, 255, 255, 0.7)',
+            position: 'absolute',
+            bottom: 5,
+            left: 20,
+            right: 20,
+            elevation: 0, 
+            borderRadius: 20,
+            height: 50,
+            display: 'flex'
           },
           null,
         ],

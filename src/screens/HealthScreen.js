@@ -9,6 +9,8 @@ import {
   Button,
   Modal,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 
 // Fonction calcul du BMR
@@ -61,11 +63,16 @@ const HealthScreen = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
+
+
+
   const handleSubmit = () => {
     const bmr = calculateBMR(age, gender, height, weight, activityLevel, healthGoal);
     setBMRResult(bmr);
     setIsFormSubmitted(true);
   };
+  
+  
 
   const handleReset = () => {
     setAge('');
@@ -80,6 +87,7 @@ const HealthScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       {!isFormSubmitted ? (
         <SafeAreaView style={styles.container}>
           <View style={styles.inputContainer}>
@@ -128,6 +136,7 @@ const HealthScreen = () => {
             <Text style={styles.inputLabel}> Height </Text>
             <TextInput
               placeholder="Enter your height"
+              keyboardType="numeric"
               style={styles.input}
               value={height}
               onChangeText={(text) => setHeight(text)}
@@ -138,6 +147,7 @@ const HealthScreen = () => {
             <Text style={styles.inputLabel}> Weight </Text>
             <TextInput
               placeholder="Enter your weight"
+              keyboardType="numeric"
               style={styles.input}
               value={weight}
               onChangeText={(text) => setWeight(text)}
@@ -244,6 +254,7 @@ const HealthScreen = () => {
           </View>
         </View>
       )}
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };

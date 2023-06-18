@@ -21,7 +21,7 @@
     "@rneui/themed": "^4.0.0-rc.7",
     "axios": "^1.4.0",
     "expo": "~48.0.15",
-    "expo-blur": "^12.3.0",
+    "expo-blur": "~12.2.2",
     "expo-checkbox": "^2.3.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
