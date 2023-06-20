@@ -8,7 +8,7 @@ Auteurs: SOLTANI Rayen et DUMAS Valentin
 
 - [Aperçu](#aperçu)
 - [Installation](#installation)
-- [Utilisation] (#utilisation)
+- [Utilisation](#utilisation)
 
 
 ## Aperçu
