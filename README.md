@@ -1,0 +1,44 @@
+# MEAL MASTER
+
+Projet de developpement mobile E4FI - 2023 ESIEE Paris
+
+## Table des matières
+
+- [Aperçu](#aperçu)
+- [Installation](#installation)
+
+
+## Aperçu
+
+Meal Master est une application développée en React Native permettant de connaitre l'apport calorique nécessaire selon votre objectif. 
+L'application vous permet aussi de rechercher des aliments et connaitre le nombre de calorie qu'ils contiennent par portion de 100g.
+
+## Installation
+
+1) Installer Expo: 
+$npm install expo
+
+2) Cloner le dépôt GIT:  
+```
+git clone https://github.com/ESIEECourses/E4FI_Dev_Mobile_DUMAS_SOLTANI.git
+```
+
+3) Installer les modules nécessaires: 
+```
+npm install
+```
+
+4) Lancer l'application: 
+```
+cd E4FI_Dev_Mobile_Dumas_Soltani
+npm expo start
+```
+
+5) Choisir un simulateur pour lancer l'application: 
+```
+i //iPhone
+a //Android
+//Scanner le QR code pour le lancer sur votre téléphone via l'application Expo GO.
+```
+
+
