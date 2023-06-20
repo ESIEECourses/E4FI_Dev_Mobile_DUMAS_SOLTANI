@@ -6,7 +6,6 @@ import {
   TextInput,
   SafeAreaView,
   StyleSheet,
-  Button,
   Modal,
   TouchableOpacity,
   TouchableWithoutFeedback,

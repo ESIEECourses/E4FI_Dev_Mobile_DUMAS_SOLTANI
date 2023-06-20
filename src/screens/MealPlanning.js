@@ -8,7 +8,6 @@ const MealPlanning = () => {
   const { meals, removeMeal } = useContext(MealContext);
   const navigation = useNavigation();
 
-
   const getUniqueMealsByDayAndType = () => {
     const uniqueMeals = [];
 
@@ -47,12 +46,12 @@ const MealPlanning = () => {
     return totalCalories;
   };
 
-  // Retour à la page FoodDatabase 
+  // Retour à la page FoodDatabase
   const handleAddFood = () => {
     navigation.navigate('Food Database');
   };
 
-  // Gestion de la suppression d'un aliment 
+  // Gestion de la suppression d'un aliment
   const handleRemoveFood = (meal) => {
     const mealIndex = meals.findIndex((m) => m.name === meal);
     if (mealIndex !== -1) {
@@ -100,7 +99,7 @@ const MealPlanning = () => {
               </View>
 
               <Text style={styles.totalCalories}>
-                Total Calories: {calculateTotalCalories(day)}
+                Total Calories: {calculateTotalCalories(day).toFixed(2)}
               </Text>
             </View>
           )

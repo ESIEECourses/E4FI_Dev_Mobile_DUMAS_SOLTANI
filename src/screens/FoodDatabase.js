@@ -13,8 +13,8 @@ import ModalSelector from 'react-native-modal-selector';
 import { MealContext } from './MealContext';
 
 const FoodDatabase = ({ navigation }) => {
-  const APP_ID = 'b93b7010';
-  const APP_KEY = 'cb57f85c98d052d57b80d397f8b522ad';
+  const APP_ID = '7d6ec309';
+  const APP_KEY = 'c242b362495c4bdc1e177f74b9f82fc8';
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [error, setError] = useState(null);
@@ -26,7 +26,6 @@ const FoodDatabase = ({ navigation }) => {
   const { addMeal } = useContext(MealContext);
 
   // Fonction pour effectuer une recherche dans la base de données d'aliments
-
   const handleSearch = () => {
     fetch(
       `https://api.edamam.com/api/food-database/v2/parser?app_id=${APP_ID}&app_key=${APP_KEY}&ingr=${searchQuery}`
@@ -51,7 +50,7 @@ const FoodDatabase = ({ navigation }) => {
       });
   };
 
-    // Fonction pour ajouter un aliment au repas
+  // Fonction pour ajouter un aliment au repas
 
   const handleAddToMeal = () => {
     if (searchResults) {
@@ -64,7 +63,7 @@ const FoodDatabase = ({ navigation }) => {
     setModalVisible(false);
   };
 
-    // Fonction pour soumettre les informations du modal afin de transmettre au planning via le Context
+  // Fonction pour soumettre les informations du modal afin de transmettre au planning via le Context
   const handleModalSubmit = () => {
     const meal = {
       name: searchResults.label,
@@ -95,7 +94,9 @@ const FoodDatabase = ({ navigation }) => {
         {searchResults && (
           <View>
             <Text style={styles.resultLabel}>Name: {searchResults.label}</Text>
-            <Text style={styles.resultLabel}>Calories: {searchResults.nutrients.ENERC_KCAL}</Text>
+            <Text style={styles.resultLabel}>
+              Calories: {searchResults.nutrients.ENERC_KCAL.toFixed(2)}
+            </Text>
             <TouchableOpacity style={styles.button} onPress={handleAddToMeal}>
               <Text style={styles.buttonText}>Add to Meal</Text>
             </TouchableOpacity>
@@ -103,57 +104,65 @@ const FoodDatabase = ({ navigation }) => {
         )}
         {error && <Text>{error}</Text>}
       </View>
-      <Modal visible={modalVisible} transparent>
-        <View style={styles.modalContainer}>
-          <View style={styles.modal}>
-            <Text style={styles.title}>Add to Meal</Text>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Day:</Text>
-              <ModalSelector
-                style={{ backgroundColor: 'white', borderRadius: 8 }}
-                data={[
-                  { key: 0, label: 'Monday' },
-                  { key: 1, label: 'Tuesday' },
-                  { key: 2, label: 'Wednesday' },
-                  { key: 3, label: 'Thursday' },
-                  { key: 4, label: 'Friday' },
-                  { key: 5, label: 'Saturday' },
-                  { key: 6, label: 'Sunday' },
-                ]}
-                initValue={selectedDay} // Utilisez selectedDay comme initValue
-                onChange={(option) => setSelectedDay(option.label)}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Meal:</Text>
-              <ModalSelector
-                style={{ backgroundColor: 'white', borderRadius: 8 }}
-                data={[
-                  { key: 0, label: 'Breakfast' },
-                  { key: 1, label: 'Lunch' },
-                  { key: 2, label: 'Snack' },
-                  { key: 3, label: 'Dinner' },
-                ]}
-                initValue={selectedMeal} // Utilisez selectedMeal comme initValue
-                onChange={(option) => setSelectedMeal(option.label)}
-              />
-            </View>
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.inputLabel}>Quantity:</Text>
-              <TextInput style={styles.input} value={quantity} onChangeText={setQuantity} />
-            </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.button} onPress={handleModalSubmit}>
-                <Text style={styles.buttonText}>Submit</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.button} onPress={handleModalClose}>
-                <Text style={styles.buttonText}>Close</Text>
-              </TouchableOpacity>
+      <View>
+        <Modal visible={modalVisible} transparent>
+          <View style={styles.modalContainer}>
+            <View style={styles.modal}>
+              <Text style={styles.title}>Add to Meal</Text>
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Day:</Text>
+                <ModalSelector
+                  style={{ backgroundColor: 'white', borderRadius: 8 }}
+                  data={[
+                    { key: 0, label: 'Monday' },
+                    { key: 1, label: 'Tuesday' },
+                    { key: 2, label: 'Wednesday' },
+                    { key: 3, label: 'Thursday' },
+                    { key: 4, label: 'Friday' },
+                    { key: 5, label: 'Saturday' },
+                    { key: 6, label: 'Sunday' },
+                  ]}
+                  initValue={selectedDay} // Utilisez selectedDay comme initValue
+                  onChange={(option) => setSelectedDay(option.label)}
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Meal:</Text>
+                <ModalSelector
+                  style={{ backgroundColor: 'white', borderRadius: 8 }}
+                  data={[
+                    { key: 0, label: 'Breakfast' },
+                    { key: 1, label: 'Lunch' },
+                    { key: 2, label: 'Snack' },
+                    { key: 3, label: 'Dinner' },
+                  ]}
+                  initValue={selectedMeal} // Utilisez selectedMeal comme initValue
+                  onChange={(option) => setSelectedMeal(option.label)}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Quantity:</Text>
+                <TextInput
+                  style={styles.input}
+                  value={quantity}
+                  keyboardType="numeric"
+                  onChangeText={setQuantity}
+                />
+              </View>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.button} onPress={handleModalSubmit}>
+                  <Text style={styles.buttonText}>Submit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleModalClose}>
+                  <Text style={styles.buttonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </View>
     </SafeAreaView>
   );
 };
@@ -210,7 +219,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
+    top: 10,
     alignItems: 'center',
     backgroundColor: '#364f6b',
   },
