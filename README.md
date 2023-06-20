@@ -35,8 +35,10 @@ npm expo start
 ```
 
 5) Choisir un simulateur pour lancer l'application: 
-i pour l'iPhone 
-a pour un Android 
-Scanner le QR code pour le lancer sur votre téléphone via l'application Expo GO.
+```
+i //iPhone
+a //Android
+//Scanner le QR code pour le lancer sur votre téléphone via l'application Expo GO.
+```
 
 
