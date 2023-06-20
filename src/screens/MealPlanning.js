@@ -8,6 +8,7 @@ const MealPlanning = () => {
   const { meals, removeMeal } = useContext(MealContext);
   const navigation = useNavigation();
 
+
   const getUniqueMealsByDayAndType = () => {
     const uniqueMeals = [];
 
@@ -34,6 +35,7 @@ const MealPlanning = () => {
     return uniqueMeals;
   };
 
+  // Calculer le total de calories pour un jour donné
   const calculateTotalCalories = (day) => {
     const mealsOfDay = meals.filter((meal) => meal.day === day);
 
@@ -45,10 +47,12 @@ const MealPlanning = () => {
     return totalCalories;
   };
 
+  // Retour à la page FoodDatabase 
   const handleAddFood = () => {
     navigation.navigate('Food Database');
   };
 
+  // Gestion de la suppression d'un aliment 
   const handleRemoveFood = (meal) => {
     const mealIndex = meals.findIndex((m) => m.name === meal);
     if (mealIndex !== -1) {

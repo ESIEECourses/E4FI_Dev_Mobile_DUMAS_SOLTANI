@@ -63,17 +63,14 @@ const HealthScreen = () => {
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
-
-
-
+  //Validation du Form
   const handleSubmit = () => {
     const bmr = calculateBMR(age, gender, height, weight, activityLevel, healthGoal);
     setBMRResult(bmr);
     setIsFormSubmitted(true);
   };
-  
-  
 
+  //Réinitialisation du Form
   const handleReset = () => {
     setAge('');
     setGender('');
@@ -88,172 +85,174 @@ const HealthScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      {!isFormSubmitted ? (
-        <SafeAreaView style={styles.container}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Age</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your age"
-              keyboardType="numeric"
-              value={age}
-              onChangeText={(text) => setAge(text)}
-            />
-          </View>
+        {!isFormSubmitted ? (
+          <SafeAreaView style={styles.container}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Age</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your age"
+                keyboardType="numeric"
+                value={age}
+                onChangeText={(text) => setAge(text)}
+              />
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}> Gender </Text>
-            <TouchableOpacity style={styles.pickerContainer} onPress={() => setModalVisible(true)}>
-              <Text style={styles.pickerText}>{gender ? gender : 'Select gender'}</Text>
-            </TouchableOpacity>
-            <Modal
-              animationType="slide"
-              transparent
-              visible={modalVisible}
-              onRequestClose={() => {
-                setModalVisible(false);
-              }}>
-              <View style={styles.modalContainer}>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={gender}
-                  onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
-                  <Picker.Item label="Male" value="male" />
-                  <Picker.Item label="Female" value="female" />
-                </Picker>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}>
-                  <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </Modal>
-          </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}> Gender </Text>
+              <TouchableOpacity
+                style={styles.pickerContainer}
+                onPress={() => setModalVisible(true)}>
+                <Text style={styles.pickerText}>{gender ? gender : 'Select gender'}</Text>
+              </TouchableOpacity>
+              <Modal
+                animationType="slide"
+                transparent
+                visible={modalVisible}
+                onRequestClose={() => {
+                  setModalVisible(false);
+                }}>
+                <View style={styles.modalContainer}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={gender}
+                    onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
+                    <Picker.Item label="Male" value="male" />
+                    <Picker.Item label="Female" value="female" />
+                  </Picker>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}>
+                    <Text style={styles.buttonText}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}> Height </Text>
-            <TextInput
-              placeholder="Enter your height"
-              keyboardType="numeric"
-              style={styles.input}
-              value={height}
-              onChangeText={(text) => setHeight(text)}
-            />
-          </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}> Height </Text>
+              <TextInput
+                placeholder="Enter your height"
+                keyboardType="numeric"
+                style={styles.input}
+                value={height}
+                onChangeText={(text) => setHeight(text)}
+              />
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}> Weight </Text>
-            <TextInput
-              placeholder="Enter your weight"
-              keyboardType="numeric"
-              style={styles.input}
-              value={weight}
-              onChangeText={(text) => setWeight(text)}
-            />
-          </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}> Weight </Text>
+              <TextInput
+                placeholder="Enter your weight"
+                keyboardType="numeric"
+                style={styles.input}
+                value={weight}
+                onChangeText={(text) => setWeight(text)}
+              />
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}> Activity Level </Text>
-            <TouchableOpacity
-              style={styles.pickerContainer}
-              onPress={() => setModalVisible('activityLevel')}>
-              <Text style={styles.pickerText}>
-                {activityLevel ? activityLevel : 'Select activity level'}
-              </Text>
-            </TouchableOpacity>
-            <Modal
-              style={styles.modalContainer}
-              animationType="slide"
-              transparent
-              visible={modalVisible === 'activityLevel'}
-              onRequestClose={() => {
-                setModalVisible(null);
-              }}>
-              <View style={styles.modalContainer}>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={activityLevel}
-                  onValueChange={(itemValue, itemIndex) => setActivityLevel(itemValue)}>
-                  <Picker.Item label="Sedentary" value="Sedentary" />
-                  <Picker.Item label="Light Exercise" value="Light Exercise" />
-                  <Picker.Item label="Moderate Exercise" value="Moderate Exercise" />
-                  <Picker.Item label="Heavy Exercise" value="Heavy Exercise" />
-                  <Picker.Item label="Extra Exercise" value="Extra Exercise" />
-                </Picker>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}>
-                  <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </Modal>
-          </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}> Activity Level </Text>
+              <TouchableOpacity
+                style={styles.pickerContainer}
+                onPress={() => setModalVisible('activityLevel')}>
+                <Text style={styles.pickerText}>
+                  {activityLevel ? activityLevel : 'Select activity level'}
+                </Text>
+              </TouchableOpacity>
+              <Modal
+                style={styles.modalContainer}
+                animationType="slide"
+                transparent
+                visible={modalVisible === 'activityLevel'}
+                onRequestClose={() => {
+                  setModalVisible(null);
+                }}>
+                <View style={styles.modalContainer}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={activityLevel}
+                    onValueChange={(itemValue, itemIndex) => setActivityLevel(itemValue)}>
+                    <Picker.Item label="Sedentary" value="Sedentary" />
+                    <Picker.Item label="Light Exercise" value="Light Exercise" />
+                    <Picker.Item label="Moderate Exercise" value="Moderate Exercise" />
+                    <Picker.Item label="Heavy Exercise" value="Heavy Exercise" />
+                    <Picker.Item label="Extra Exercise" value="Extra Exercise" />
+                  </Picker>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}>
+                    <Text style={styles.buttonText}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+            </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}> Health goal </Text>
-            <TouchableOpacity
-              style={styles.pickerContainer}
-              onPress={() => setModalVisible('healthGoal')}>
-              <Text style={styles.pickerText}>
-                {healthGoal ? healthGoal : 'Select health goal'}
-              </Text>
-            </TouchableOpacity>
-            <Modal
-              animationType="slide"
-              transparent
-              visible={modalVisible === 'healthGoal'}
-              onRequestClose={() => {
-                setModalVisible(null);
-              }}>
-              <View style={styles.modalContainer}>
-                <Picker
-                  style={styles.picker}
-                  selectedValue={healthGoal}
-                  onValueChange={(itemValue, itemIndex) => setHealthGoal(itemValue)}>
-                  <Picker.Item label="Weight Loss" value="Weight Loss" />
-                  <Picker.Item label="Weight Maintenance" value="Weight Maintenance" />
-                  <Picker.Item label="Weight Gain" value="Weight Gain" />
-                </Picker>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}>
-                  <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-              </View>
-            </Modal>
-          </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}> Health goal </Text>
+              <TouchableOpacity
+                style={styles.pickerContainer}
+                onPress={() => setModalVisible('healthGoal')}>
+                <Text style={styles.pickerText}>
+                  {healthGoal ? healthGoal : 'Select health goal'}
+                </Text>
+              </TouchableOpacity>
+              <Modal
+                animationType="slide"
+                transparent
+                visible={modalVisible === 'healthGoal'}
+                onRequestClose={() => {
+                  setModalVisible(null);
+                }}>
+                <View style={styles.modalContainer}>
+                  <Picker
+                    style={styles.picker}
+                    selectedValue={healthGoal}
+                    onValueChange={(itemValue, itemIndex) => setHealthGoal(itemValue)}>
+                    <Picker.Item label="Weight Loss" value="Weight Loss" />
+                    <Picker.Item label="Weight Maintenance" value="Weight Maintenance" />
+                    <Picker.Item label="Weight Gain" value="Weight Gain" />
+                  </Picker>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}>
+                    <Text style={styles.buttonText}>Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </Modal>
+            </View>
 
-          <View>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                (!age || !gender || !height || !weight || !activityLevel || !healthGoal) &&
-                  styles.disabledButton,
-              ]}
-              onPress={handleSubmit}
-              disabled={!age || !gender || !height || !weight || !activityLevel || !healthGoal}>
-              <Text style={styles.buttonText}>Submit</Text>
-            </TouchableOpacity>
-          </View>
-        </SafeAreaView>
-      ) : (
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultLabel}>BMR Result:</Text>
-          <Text style={styles.resultText}>{bmrResult.toFixed(2)}</Text>
+            <View>
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  (!age || !gender || !height || !weight || !activityLevel || !healthGoal) &&
+                    styles.disabledButton,
+                ]}
+                onPress={handleSubmit}
+                disabled={!age || !gender || !height || !weight || !activityLevel || !healthGoal}>
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+            </View>
+          </SafeAreaView>
+        ) : (
+          <View style={styles.resultContainer}>
+            <Text style={styles.resultLabel}>BMR Result:</Text>
+            <Text style={styles.resultText}>{bmrResult.toFixed(2)}</Text>
 
-          <View style={{ marginTop: 20 }}>
-            <TouchableOpacity style={styles.button} onPress={handleReset}>
-              <Text style={styles.buttonText}>Reset</Text>
-            </TouchableOpacity>
+            <View style={{ marginTop: 20 }}>
+              <TouchableOpacity style={styles.button} onPress={handleReset}>
+                <Text style={styles.buttonText}>Reset</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      )}
+        )}
       </TouchableWithoutFeedback>
     </SafeAreaView>
   );

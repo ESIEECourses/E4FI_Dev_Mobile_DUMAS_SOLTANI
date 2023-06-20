@@ -25,6 +25,8 @@ const FoodDatabase = ({ navigation }) => {
 
   const { addMeal } = useContext(MealContext);
 
+  // Fonction pour effectuer une recherche dans la base de données d'aliments
+
   const handleSearch = () => {
     fetch(
       `https://api.edamam.com/api/food-database/v2/parser?app_id=${APP_ID}&app_key=${APP_KEY}&ingr=${searchQuery}`
@@ -49,16 +51,20 @@ const FoodDatabase = ({ navigation }) => {
       });
   };
 
+    // Fonction pour ajouter un aliment au repas
+
   const handleAddToMeal = () => {
     if (searchResults) {
       setModalVisible(true);
     }
   };
+  // Fonction pour fermer le modal
 
   const handleModalClose = () => {
     setModalVisible(false);
   };
 
+    // Fonction pour soumettre les informations du modal afin de transmettre au planning via le Context
   const handleModalSubmit = () => {
     const meal = {
       name: searchResults.label,

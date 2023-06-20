@@ -12,7 +12,6 @@ const Tab = createBottomTabNavigator();
 const AppNavigator = () => {
   return (
     <Tab.Navigator
-      
       initialRouteName="Welcome"
       screenOptions={{
         headerShown: false,
@@ -24,10 +23,10 @@ const AppNavigator = () => {
             bottom: 5,
             left: 20,
             right: 20,
-            elevation: 0, 
+            elevation: 0,
             borderRadius: 20,
             height: 50,
-            display: 'flex'
+            display: 'flex',
           },
           null,
         ],

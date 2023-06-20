@@ -1,25 +1,26 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useState, useEffect } from 'react';
 
-// Créez le contexte MealContext
+//Context MealContext
 export const MealContext = createContext();
 
-// Créez le fournisseur de contexte MealProvider
+//fournisseur de Context MealProvider
 export const MealProvider = ({ children }) => {
   const [meals, setMeals] = useState([]);
 
-  // Fonction pour ajouter un repas au contexte
+  // Fonction pour ajouter un repas au Context
   const addMeal = (meal) => {
     setMeals([...meals, meal]);
   };
 
-  // Fonction pour supprimer un repas du contexte
+  // Fonction pour supprimer un repas du Context
   const removeMeal = (mealIndex) => {
     const updatedMeals = [...meals];
     updatedMeals.splice(mealIndex, 1);
     setMeals(updatedMeals);
   };
 
+  // Fonction pour sauvegarder les repas en utilisant AsyncStorage
   const saveMeals = async () => {
     try {
       const mealsJson = JSON.stringify(meals);
@@ -29,11 +30,12 @@ export const MealProvider = ({ children }) => {
     }
   };
 
-  // Utilisez useEffect pour appeler saveMeals chaque fois que meals change
+  // Sauvegarde des repas lorsque le state meals change
   useEffect(() => {
     saveMeals();
   }, [meals]);
 
+  // Fonction pour charger les repas depuis AsyncStorage
   const loadMeals = async () => {
     try {
       const mealsJson = await AsyncStorage.getItem('meals');
@@ -46,11 +48,11 @@ export const MealProvider = ({ children }) => {
     }
   };
 
-  // Utilisez useEffect pour charger les repas une fois au montage du composant
+  // Chargement des repas lors du montage du composant
   useEffect(() => {
     loadMeals();
   }, []);
-  // Valeur fournie par le contexte
+  // Valeur du Context fournie aux composants enfants
   const contextValue = {
     meals,
     addMeal,
