@@ -2,10 +2,13 @@
 
 Projet de developpement mobile E4FI - 2023 ESIEE Paris
 
+Auteurs: SOLTANI Rayen et DUMAS Valentin 
+
 ## Table des matières
 
 - [Aperçu](#aperçu)
 - [Installation](#installation)
+- [Utilisation] (#utilisation)
 
 
 ## Aperçu
@@ -40,5 +43,22 @@ i //iPhone
 a //Android
 //Scanner le QR code pour le lancer sur votre téléphone via l'application Expo GO.
 ```
+
+
+## Utilisation 
+
+L'application se compose d'une page d'accueil et de 3 écrans principaux
+
+Après avoir cliqué sur le boutont "Start your journey !", renseignez vos informations et validez le formulaire afin de connaitre l'apport calorique nécessaires pour atteindre votre objectif.
+
+Ensuite accédez à la page de rechercher d'aliments afin de composer vos repas. 
+Chaque aliments est présenté avec son nombre de calories pour 100g.
+
+Cliquez sur "Add To Meal" afin de pouvoir ajouter l'aliment trouvé dans votre menu hebdomadaire.
+
+La page des repas vous permet d'avoir un aperçu hebdomadaire et vous permet de retirer les aliments qui ne vous conviennent pas.
+
+
+
 
 
