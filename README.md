@@ -19,7 +19,7 @@ L'application vous permet aussi de rechercher des aliments et connaitre le nombr
 $npm install expo
 
 2) Cloner le dépôt GIT:  
-```git clone https://github.com/ESIEECourses/E4FI_Dev_Mobile_DUMAS_SOLTANI.git````
+```git clone https://github.com/ESIEECourses/E4FI_Dev_Mobile_DUMAS_SOLTANI.git```
 
 3) Installer les modules nécessaires: 
 $npm install
